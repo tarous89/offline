@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "offline-72",
+  "name": "72offline",
   "compatibility_date": "2026-09-20",
   "workers_dev": true,
   "assets": {
