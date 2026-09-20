@@ -4,137 +4,276 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>72Offline — When Life Goes Offline</title>
-  <meta name="description" content="Simple preparation for power loss, no signal, cyber disruption, nuclear alerts, natural disasters, and the first 72 hours." />
+  <meta name="description" content="Learn what matters and find high-quality essentials for situations where normal systems fail." />
   <meta name="theme-color" content="#51e236" />
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root{
+      --bg:#f7f4ed;--paper:#fffdf8;--ink:#0b0d0b;--muted:#59605a;
+      --green:#51e236;--green-deep:#159b25;--pale:#edf4e7;--line:#d7d4cb;
+      --shell:min(1180px,calc(100vw - 72px));
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    svg{display:block}
+    .shell{width:var(--shell);margin-inline:auto}
+    .site-header{
+      width:min(1280px,calc(100vw - 72px));height:84px;margin-inline:auto;
+      display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:34px
+    }
+    .brand{justify-self:start;font-size:34px;line-height:1;font-weight:900;letter-spacing:-2.2px;color:var(--ink)}
+    .brand span{color:var(--green)}
+    .nav{display:flex;gap:38px;font-weight:700;font-size:14px}
+    .nav a,.button-link{position:relative}
+    .nav a::after,.button-link::after{content:"";position:absolute;left:0;right:100%;bottom:-7px;height:2px;background:var(--green);transition:right .2s ease}
+    .nav a:hover::after,.button-link:hover::after{right:0}
+    .nav-cta{justify-self:end;background:var(--green);padding:15px 25px;border-radius:999px;font-weight:800;font-size:14px;transition:transform .2s ease}
+    .nav-cta:hover,.button-primary:hover{transform:translateY(-2px)}
+    .hero{min-height:620px;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:28px;padding:34px 0 52px}
+    .hero-copy{position:relative;z-index:3;padding-left:6px}
+    .eyebrow{margin:0 0 28px;text-transform:uppercase;letter-spacing:5px;font-size:11px;line-height:1.65;color:#737872}
+    h1{margin:0;font-size:clamp(72px,7.1vw,112px);line-height:.87;letter-spacing:-6.5px;font-weight:900;max-width:720px}
+    .hero-deck{max-width:610px;margin:28px 0 0;font-size:20px;line-height:1.42;letter-spacing:-.3px}
+    .hero-actions{display:flex;align-items:center;gap:34px;margin-top:32px}
+    .button{min-height:58px;display:inline-flex;align-items:center;justify-content:center;gap:24px;padding:0 28px;border-radius:22px;font-size:17px;font-weight:800}
+    .button-primary{background:var(--green);transition:transform .2s ease}
+    .button-primary span,.button-link span{font-size:26px;line-height:1}
+    .button-link{display:inline-flex;align-items:center;gap:12px;font-weight:800;font-size:17px;padding-bottom:4px}
+    .micro-nav{margin:62px 0 0;color:#888c86;text-transform:uppercase;letter-spacing:4px;font-size:9px;white-space:nowrap}
+    .micro-nav b{margin:0 12px;font-weight:400;color:#b4b6b1}
+    .hero-art{min-height:560px;position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate}
+    .hero-art::before{
+      content:"";position:absolute;inset:12px 24px 22px 54px;z-index:-1;
+      background:linear-gradient(135deg,#2ccf35 0%,#63e63d 65%,#8af052 100%);
+      clip-path:polygon(43% 0,100% 0,70% 100%,0 57%)
+    }
+    .hero-photo{width:min(100%,540px);max-height:570px;height:auto;object-fit:contain;display:block;filter:drop-shadow(0 20px 18px rgba(0,0,0,.10))}
+    .section{padding:56px 0 0}
+    .section-heading{margin-bottom:26px}
+    .section-heading h2{margin:0;font-size:42px;line-height:1;letter-spacing:-2.1px;font-weight:900}
+    .section-heading p{margin:10px 0 0;font-size:18px;color:#3f443f}
+    .section-heading.compact h2{font-size:34px;letter-spacing:-1.7px}
+    .section-heading.compact p{font-size:17px}
+    .scenario-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .scenario-card{
+      min-height:292px;border-radius:20px;padding:26px 22px 22px;
+      background:linear-gradient(145deg,#f2f5ec,#e6efdf);display:flex;flex-direction:column;
+      border:1px solid rgba(30,42,26,.04);transition:transform .2s ease,box-shadow .2s ease,background .2s ease
+    }
+    .scenario-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(22,38,18,.08);background:#f2f7ec}
+    .scenario-card svg{width:72px;height:72px;margin:0 auto 24px;color:#18231a;fill:currentColor}
+    .scenario-card .accent-fill{fill:var(--green)}
+    .scenario-card .accent-stroke{stroke:var(--green);fill:none}
+    .scenario-card .slash{stroke:var(--green);stroke-width:7;stroke-linecap:round;fill:none}
+    .scenario-card h3{margin:0;font-size:20px;letter-spacing:-.7px}
+    .scenario-card p{margin:10px 0 0;font-size:15px;line-height:1.32;color:#424940}
+    .card-arrow{margin-top:auto;padding-top:20px;color:var(--green-deep);font-size:28px}
+    .items-section{padding-top:38px}
+    .item-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .item-card{
+      min-height:96px;background:rgba(255,255,255,.64);border:1px solid rgba(20,20,20,.035);
+      border-radius:16px;display:grid;grid-template-columns:44px 1fr auto;align-items:center;
+      gap:14px;padding:18px;transition:transform .2s ease,background .2s ease
+    }
+    .item-card:hover{transform:translateY(-3px);background:#fff}
+    .item-card strong{font-size:15px;line-height:1.15}
+    .item-card>span:last-child{color:var(--green-deep);font-size:25px}
+    .item-svg{width:44px;height:44px;color:var(--ink);overflow:visible}
+    .item-svg .black{fill:var(--ink);stroke:var(--ink)}
+    .item-svg .green{fill:var(--green);stroke:var(--green)}
+    .item-svg .outline{fill:none;stroke:var(--ink);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+    .item-svg .green-stroke{fill:none;stroke:var(--green);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+    .footer{
+      min-height:120px;margin-top:42px;border-top:1px solid var(--line);
+      display:flex;align-items:center;justify-content:space-between;color:#737872;font-size:13px
+    }
+    .footer-left{display:flex;align-items:center;gap:22px}
+    .footer-left i{width:1px;height:38px;background:#aaa;display:block}
+    .brand-small{font-size:29px;color:var(--ink)}
+    @media(max-width:1050px){
+      :root{--shell:min(920px,calc(100vw - 48px))}
+      .site-header{width:calc(100vw - 48px)}
+      .hero{grid-template-columns:1fr;padding-top:56px}
+      .hero-art{margin-top:-10px;justify-self:center;width:min(620px,100%);min-height:470px}
+      .scenario-grid{grid-template-columns:repeat(3,1fr)}
+      .item-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:720px){
+      :root{--shell:calc(100vw - 32px)}
+      .site-header{width:calc(100vw - 32px);height:76px;display:flex;justify-content:space-between}
+      .nav{display:none}.brand{font-size:30px}.nav-cta{padding:12px 18px;font-size:13px}
+      .hero{min-height:auto;padding:44px 0 18px}
+      .eyebrow{margin-bottom:24px;font-size:10px;letter-spacing:4px}
+      h1{font-size:clamp(62px,19vw,88px);letter-spacing:-5px}
+      .hero-deck{font-size:17px;margin-top:22px}
+      .hero-actions{align-items:flex-start;gap:16px;flex-direction:column}
+      .button{min-height:54px}
+      .micro-nav{margin-top:36px;font-size:8px;letter-spacing:2px;white-space:normal;line-height:1.8}
+      .hero-art{min-height:390px;width:100%}
+      .hero-art::before{inset:10px 8px 20px 40px}
+      .hero-photo{width:min(100%,430px);max-height:440px}
+      .section{padding-top:40px}
+      .section-heading h2{font-size:34px}.section-heading p{font-size:16px}
+      .section-heading.compact h2{font-size:30px}
+      .scenario-grid{grid-template-columns:1fr 1fr;gap:12px}
+      .scenario-card{min-height:250px;padding:20px 16px}
+      .scenario-card svg{width:62px;height:62px}
+      .scenario-card h3{font-size:18px}.scenario-card p{font-size:14px}
+      .item-grid{grid-template-columns:1fr;gap:10px}.item-card{min-height:82px}
+      .footer{margin-top:32px;min-height:120px;align-items:flex-start;padding:28px 0;gap:28px;flex-direction:column}
+      .footer-left{gap:14px}
+    }
+    @media(max-width:430px){
+      .scenario-grid{grid-template-columns:1fr}
+      .scenario-card{min-height:190px;display:grid;grid-template-columns:72px 1fr;grid-template-rows:auto auto 1fr;column-gap:16px}
+      .scenario-card svg{grid-row:1/4;margin:8px 0 0}.scenario-card p{margin-top:6px}.card-arrow{padding-top:12px}
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="72Offline home"><span>72</span>Offline</a>
     <nav class="nav" aria-label="Main navigation">
-      <a href="#guides">Guides</a>
       <a href="#scenarios">Scenarios</a>
-      <a href="#guides">72h Kit</a>
+      <a href="#items">Items</a>
+      <a href="#items">72h Kit</a>
     </nav>
-    <a class="nav-cta" href="#guides">Get Started</a>
+    <a class="nav-cta" href="#items">Explore Items</a>
   </header>
 
   <main id="top">
     <section class="hero shell">
       <div class="hero-copy">
-        <p class="eyebrow">Be ready for<br />a more resilient tomorrow</p>
-        <h1>When Life<br />Goes Offline</h1>
-        <p class="hero-deck">Simple preparation for power loss, no signal, cyber disruption, nuclear alerts, and the first 72 hours.</p>
+        <p class="eyebrow">Learn the risks.<br>Get the essentials.</p>
+        <h1>When Life<br>Goes Offline</h1>
+        <p class="hero-deck">Learn what matters, then get high-quality essentials for the moments when normal systems fail.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#guides">Explore Guides <span aria-hidden="true">→</span></a>
-          <a class="button-link" href="#guides">Build Your Kit <span aria-hidden="true">→</span></a>
+          <a class="button button-primary" href="#scenarios">Explore Scenarios <span aria-hidden="true">→</span></a>
+          <a class="button-link" href="#items">Explore Items <span aria-hidden="true">→</span></a>
         </div>
-        <p class="micro-nav">Prepare <b>/</b> Learn <b>/</b> Be ready <b>/</b> Stay calm</p>
+        <p class="micro-nav">Prepare <b>/</b> Learn <b>/</b> Equip <b>/</b> Stay calm</p>
       </div>
 
-      <div class="hero-art" aria-label="72Offline preparedness kit illustration">
-        <div class="green-slice" aria-hidden="true"></div>
-        <svg class="gear-svg" viewBox="0 0 700 610" role="img" aria-labelledby="gearTitle gearDesc">
-          <title id="gearTitle">72Offline preparedness kit</title>
-          <desc id="gearDesc">A backpack, water bottle, first aid pouch, and flashlight.</desc>
-          <defs>
-            <linearGradient id="bagG" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#67704d"/>
-              <stop offset="1" stop-color="#3e4531"/>
-            </linearGradient>
-            <linearGradient id="metalG" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#121612"/>
-              <stop offset=".5" stop-color="#333a34"/>
-              <stop offset="1" stop-color="#101311"/>
-            </linearGradient>
-            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="18" stdDeviation="18" flood-opacity=".22"/>
-            </filter>
-          </defs>
-          <ellipse cx="410" cy="555" rx="255" ry="34" fill="#000" opacity=".10"/>
-          <g filter="url(#shadow)">
-            <rect x="315" y="96" width="300" height="425" rx="54" fill="url(#bagG)"/>
-            <path d="M335 105h258l-27 62H363z" fill="#727b57"/>
-            <rect x="431" y="69" width="70" height="104" rx="13" fill="#101411"/>
-            <rect x="443" y="86" width="46" height="21" rx="4" fill="#2d332f"/>
-            <rect x="438" y="140" width="56" height="11" rx="5" fill="#202520"/>
-            <path d="M315 170c-40 26-56 73-56 124" fill="none" stroke="#1f241d" stroke-width="15" stroke-linecap="round"/>
-            <path d="M615 170c42 25 59 69 61 119" fill="none" stroke="#1f241d" stroke-width="15" stroke-linecap="round"/>
-            <rect x="352" y="220" width="31" height="228" rx="15" fill="#252b22"/>
-            <rect x="356" y="229" width="23" height="213" rx="11" fill="#111411"/>
-            <circle cx="367" cy="255" r="5" fill="#91a06f"/>
-            <text x="463" y="330" text-anchor="middle" font-size="40" font-weight="800" font-family="Arial, Helvetica, sans-serif" fill="#20241d">72Offline</text>
-          </g>
-          <g transform="translate(182 228)" filter="url(#shadow)">
-            <rect x="0" y="32" width="94" height="238" rx="34" fill="#30372f"/>
-            <rect x="20" y="0" width="54" height="54" rx="12" fill="#111511"/>
-            <rect x="29" y="-12" width="36" height="24" rx="7" fill="#252b25"/>
-            <text x="47" y="154" text-anchor="middle" font-size="34" font-weight="800" font-family="Arial, Helvetica, sans-serif" fill="#e7e9df">72</text>
-          </g>
-          <g transform="translate(210 430)" filter="url(#shadow)">
-            <rect x="0" y="0" width="230" height="128" rx="34" fill="#556044"/>
-            <path d="M105 30h35v24h24v35h-24v24h-35V89H81V54h24z" fill="#171b17"/>
-          </g>
-          <g transform="translate(505 488) rotate(-8)" filter="url(#shadow)">
-            <rect x="0" y="18" width="180" height="58" rx="29" fill="url(#metalG)"/>
-            <rect x="-24" y="8" width="58" height="79" rx="28" fill="#1a1f1b"/>
-            <circle cx="4" cy="47" r="22" fill="#929d95"/>
-            <circle cx="4" cy="47" r="14" fill="#d7ddd8"/>
-            <path d="M168 42q26 1 38 26" fill="none" stroke="#171b18" stroke-width="7" stroke-linecap="round"/>
-          </g>
-        </svg>
-        <p class="side-note">Same people<br />brighter days</p>
+      <div class="hero-art">
+        <img class="hero-photo" src="hero-kit.png" alt="72Offline emergency backpack, water bottle, first aid pouch and flashlight">
       </div>
     </section>
 
     <section class="section shell" id="scenarios">
       <div class="section-heading">
         <h2>Explore Scenarios</h2>
-        <p>Choose a scenario to see what to prepare first.</p>
+        <p>Learn what each scenario means and what can help.</p>
       </div>
+
       <div class="scenario-grid">
-        <a class="scenario-card" href="#guides" aria-label="Explore nuclear alert preparation">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="6"/><path d="M29 25 17 5A25 25 0 0 0 7 23l22 2ZM35 25 47 5a25 25 0 0 1 10 18l-22 2ZM32 38l-11 20a25 25 0 0 0 22 0L32 38Z"/></svg>
-          <h3>Nuclear Alert</h3><p>Shelter, seal, and monitor updates.</p><span class="card-arrow">→</span>
+        <a class="scenario-card" href="#items" aria-label="Explore nuclear alert preparation">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle class="accent-fill" cx="32" cy="32" r="6"/>
+            <path d="M29 25 17 5A25 25 0 0 0 7 23l22 2ZM35 25 47 5a25 25 0 0 1 10 18l-22 2Z"/>
+            <path class="accent-fill" d="M32 38 21 58a25 25 0 0 0 22 0L32 38Z"/>
+          </svg>
+          <h3>Nuclear Alert</h3>
+          <p>Shelter basics, sealing, updates, and critical items.</p>
+          <span class="card-arrow">→</span>
         </a>
-        <a class="scenario-card" href="#guides" aria-label="Explore power outage preparation">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 2 14 35h16l-5 27 25-36H34l4-24Z"/></svg>
-          <h3>Power Out</h3><p>Light, water, and backup power.</p><span class="card-arrow">→</span>
+
+        <a class="scenario-card" href="#items" aria-label="Explore power outage preparation">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M38 2 14 35h16l-5 27 25-36H34l4-24Z"/>
+            <path class="accent-stroke" d="M20 42 46 17" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+          <h3>Power Out</h3>
+          <p>Backup light, water, charging, and home essentials.</p>
+          <span class="card-arrow">→</span>
         </a>
-        <a class="scenario-card" href="#guides" aria-label="Explore no signal preparation">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="40" width="8" height="16" rx="2"/><rect x="24" y="30" width="8" height="26" rx="2"/><rect x="40" y="18" width="8" height="38" rx="2"/><path class="slash" d="M9 55 54 8"/></svg>
-          <h3>No Signal</h3><p>Phone and communication fallback.</p><span class="card-arrow">→</span>
+
+        <a class="scenario-card" href="#items" aria-label="Explore no signal preparation">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="8" y="40" width="8" height="16" rx="2"/>
+            <rect x="24" y="30" width="8" height="26" rx="2"/>
+            <rect x="40" y="18" width="8" height="38" rx="2"/>
+            <path class="slash" d="M9 55 54 8"/>
+          </svg>
+          <h3>No Signal</h3>
+          <p>Offline communication, radios, and family fallback plans.</p>
+          <span class="card-arrow">→</span>
         </a>
-        <a class="scenario-card" href="#guides" aria-label="Explore cyber attack preparation">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="35" rx="4" fill="none" stroke="currentColor" stroke-width="6"/><path d="M3 51h58v6H3z"/><rect x="25" y="27" width="14" height="13" rx="2"/><path d="M28 27v-4a4 4 0 0 1 8 0v4" fill="none" stroke="#51e236" stroke-width="4"/></svg>
-          <h3>Cyber Attack</h3><p>Protect access, payments, and devices.</p><span class="card-arrow">→</span>
+
+        <a class="scenario-card" href="#items" aria-label="Explore cyber attack preparation">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="8" y="12" width="48" height="35" rx="4" fill="none" stroke="currentColor" stroke-width="6"/>
+            <path d="M3 51h58v6H3z"/>
+            <rect x="25" y="27" width="14" height="13" rx="2"/>
+            <path d="M28 27v-4a4 4 0 0 1 8 0v4" fill="none" stroke="#51e236" stroke-width="4"/>
+          </svg>
+          <h3>Cyber Attack</h3>
+          <p>Protect access, payments, documents, and devices.</p>
+          <span class="card-arrow">→</span>
         </a>
-        <a class="scenario-card" href="#guides" aria-label="Explore natural disaster preparation">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 33 32 12l23 21v8H43V29H21v12H9z"/><path d="M5 45c8-5 14 5 22 0s14 5 22 0 10 0 10 0M5 55c8-5 14 5 22 0s14 5 22 0 10 0 10 0" fill="none" stroke="#51e236" stroke-width="5" stroke-linecap="round"/></svg>
-          <h3>Natural Disaster</h3><p>Storm, flood, and evacuation basics.</p><span class="card-arrow">→</span>
+
+        <a class="scenario-card" href="#items" aria-label="Explore natural disaster preparation">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M9 33 32 12l23 21v8H43V29H21v12H9z"/>
+            <path d="M5 45c8-5 14 5 22 0s14 5 22 0 10 0 10 0M5 55c8-5 14 5 22 0s14 5 22 0 10 0 10 0" fill="none" stroke="#51e236" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <h3>Natural Disaster</h3>
+          <p>Storm, flood, evacuation, and emergency shelter gear.</p>
+          <span class="card-arrow">→</span>
         </a>
       </div>
     </section>
 
-    <section class="section guides-section shell" id="guides">
-      <div class="section-heading compact"><h2>Start Here</h2><p>Short guides to help you prepare.</p></div>
-      <div class="guide-grid">
-        <a class="guide-card" href="#"><span class="guide-icon">✓</span><strong>72-Hour Checklist</strong><span>→</span></a>
-        <a class="guide-card" href="#"><span class="guide-icon">◒</span><strong>Water &amp; Food</strong><span>→</span></a>
-        <a class="guide-card" href="#"><span class="guide-icon">ϟ</span><strong>Backup Power</strong><span>→</span></a>
-        <a class="guide-card" href="#"><span class="guide-icon">▰</span><strong>Offline Communication</strong><span>→</span></a>
-        <a class="guide-card" href="#"><span class="guide-icon">⌂</span><strong>Shelter at Home</strong><span>→</span></a>
-        <a class="guide-card" href="#"><span class="guide-icon">↗</span><strong>Evacuation Basics</strong><span>→</span></a>
-        <a class="guide-card" href="#"><span class="guide-icon">◇</span><strong>Cyber Resilience</strong><span>→</span></a>
-        <a class="guide-card" href="#"><span class="guide-icon">☢</span><strong>Nuclear Readiness</strong><span>→</span></a>
+    <section class="section items-section shell" id="items">
+      <div class="section-heading compact">
+        <h2>Explore Items</h2>
+        <p>Shop life-saving essentials by category.</p>
+      </div>
+
+      <div class="item-grid">
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><rect class="outline" x="10" y="8" width="28" height="34" rx="4"/><rect class="black" x="17" y="4" width="14" height="8" rx="3"/><path class="green-stroke" d="m17 27 5 5 10-12"/></svg>
+          <strong>72-Hour Kits</strong><span>→</span>
+        </a>
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><path class="outline" d="M24 5C18 14 11 21 11 30a13 13 0 0 0 26 0C37 21 30 14 24 5Z"/><path class="green" d="M25 20c-4 5-7 8-7 12 0 4 3 7 7 7 1 0 2-.2 3-.6-3-2-4-5-3-8 1-3 3-6 5-8-2-1-3-2-5-2Z"/></svg>
+          <strong>Water &amp; Food</strong><span>→</span>
+        </a>
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><rect class="outline" x="8" y="12" width="30" height="24" rx="3"/><rect class="black" x="38" y="19" width="4" height="10" rx="1"/><path class="green" d="m26 15-9 12h6l-2 8 10-14h-6l1-6Z"/></svg>
+          <strong>Backup Power</strong><span>→</span>
+        </a>
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><path class="outline" d="M8 19h20l8 7v10H18l-10-7Z"/><path class="black" d="M28 19h8l7 7-7 7h-5V23Z"/><path class="green-stroke" d="M5 14h9M7 9l7 2M7 19l7-2"/></svg>
+          <strong>Lighting</strong><span>→</span>
+        </a>
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><rect class="outline" x="7" y="12" width="34" height="28" rx="5"/><path class="outline" d="M17 12V8h14v4"/><path class="green" d="M21 18h6v6h6v6h-6v6h-6v-6h-6v-6h6Z"/></svg>
+          <strong>First Aid</strong><span>→</span>
+        </a>
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><rect class="outline" x="8" y="11" width="25" height="30" rx="4"/><circle class="black" cx="20.5" cy="31" r="5"/><path class="green-stroke" d="M15 18h11M36 16c3 2 5 5 5 8M36 24c1 .7 2 2 2 3"/></svg>
+          <strong>Radios &amp; Comms</strong><span>→</span>
+        </a>
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><path class="outline" d="M6 23 24 8l18 15v18H10V23"/><path class="green" d="M25 20c5 6 7 9 7 13a8 8 0 0 1-16 0c0-4 3-8 9-13Z"/><path d="M25 27c2 3 3 4 3 6a4 4 0 0 1-8 0c0-2 2-4 5-6Z" fill="#f7f4ed"/></svg>
+          <strong>Shelter &amp; Warmth</strong><span>→</span>
+        </a>
+        <a class="item-card" href="#items">
+          <svg class="item-svg" viewBox="0 0 48 48" aria-hidden="true"><path class="outline" d="M24 5 39 11v11c0 10-6 17-15 21C15 39 9 32 9 22V11Z"/><path class="green-stroke" d="M16 24h16M18 19h12M20 29h8"/></svg>
+          <strong>Air &amp; Safety</strong><span>→</span>
+        </a>
       </div>
     </section>
   </main>
 
   <footer class="footer shell">
-    <div class="footer-left"><a class="brand brand-small" href="#top"><span>72</span>Offline</a><i></i><span>Home-first preparedness.</span></div>
-    <div class="footer-right"><span>Stay ready.</span></div>
+    <div class="footer-left">
+      <a class="brand brand-small" href="#top"><span>72</span>Offline</a>
+      <i></i>
+      <span>Preparedness, made practical.</span>
+    </div>
+    <div>Stay ready.</div>
   </footer>
-  <script src="script.js"></script>
 </body>
 </html>
