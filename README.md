@@ -1,13 +1,23 @@
 # 72Offline
 
-Initial responsive landing page for **72Offline.com**.
+Responsive one-page landing site for **72Offline**.
 
-## Current scope
+## Local
 
-- One-page brand/landing experience
-- Responsive desktop/mobile layout
-- Scenario cards for nuclear alert, power loss, no signal, cyber attack, and natural disaster
-- Guide-card placeholders ready to become individual article pages
-- No deployment configuration yet
+```sh
+npm install
+npm run build
+npx wrangler dev
+```
 
-Open index.html locally to preview.
+## Cloudflare
+
+This repository is configured for Cloudflare Workers Static Assets.
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Production branch: `main`
+- Temporary host: Cloudflare `workers.dev`
+- Worker name: `offline-72`
+
+No custom domain is configured yet.
